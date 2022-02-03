@@ -22,7 +22,7 @@ try {
 export default class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
-    public user: User | null;
+    public user: User | null = null
     public shards: GatewayManager;
 
     /**
@@ -34,7 +34,6 @@ export default class Client extends EventEmitter {
         super();
 
         this.#token = token;
-        this.user = null;
         this.options = {
             gateway_version: options?.gateway_version || 9,
             first_shard_id: options?.first_shard_id || 0,
