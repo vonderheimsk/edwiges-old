@@ -18,6 +18,8 @@ try {
  * @property {ClientOptions} options The client's options.
  * @property {GatewayManager} shards The shards list.
  * @property {User} user The user object.
+ * @event {Client#ready} Emitted when the client is ready.
+ * @event {Client#shardReady} Emitted when a shard is ready.
  */
 export default class Client extends EventEmitter {
     #token: string;
