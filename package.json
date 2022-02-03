@@ -14,7 +14,6 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "tsc",
     "dev": "tsc && node .",
     "start": "node ."
   },
