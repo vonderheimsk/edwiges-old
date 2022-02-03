@@ -22,7 +22,7 @@ try {
 export default class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
-    public user: User | null = null
+    public user: User | null = null;
     public shards: GatewayManager;
 
     /**
