@@ -1,0 +1,28 @@
+{
+  "name": "edwiges",
+  "author": {
+    "name": "Heimsk"
+  },
+  "version": "1.0.1",
+  "typings": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node .",
+    "start": "node ."
+  },
+  "dependencies": {
+    "ws": "^8.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.14",
+    "@types/ws": "^8.2.2"
+  }
+}
