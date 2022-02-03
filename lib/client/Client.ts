@@ -12,7 +12,13 @@ try {
     EventEmitter = require('events');
 }
 
-
+/**
+ * Represents a Client.
+ * @extends EventEmitter
+ * @property {ClientOptions} options The client's options.
+ * @property {GatewayManager} shards The shards list.
+ * @property {User} user The user object.
+ */
 export default class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
