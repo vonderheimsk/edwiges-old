@@ -32,11 +32,11 @@ export class Client extends EventEmitter {
      * Create a client instace.
      * @param {string} token The Discord account token.
      * @param {object} options Client options.
-     * @param {number} [options.gateway_version] The gateway version.
-     * @param {number} [options.first_shard_id] The first shard id.
-     * @param {number} [options.last_shard_id] The last shard id.
-     * @param {number} [options.shards] The number of shards.
-     * @param {boolean} [options.connectOneShardAtTime] Connect one shard at time.
+     * @param {number} [options.gateway_version=9] The gateway version.
+     * @param {number} [options.first_shard_id=0] The first shard id.
+     * @param {number} [options.last_shard_id=0] The last shard id.
+     * @param {number} [options.shards=1] The number of shards, set to 'auto' to use recommended number of shards.
+     * @param {boolean} [options.connectOneShardAtTime=true] Connect one shard at time.
      */
     constructor(token: string, options?: ClientOptions) {
         super();
