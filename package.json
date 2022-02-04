@@ -11,11 +11,12 @@
     "dist"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "tsc && node .",
-    "start": "node ."
+    "start": "node .",
+    "test": "node index.test.js"
   },
   "dependencies": {
     "ws": "^8.4.2"
