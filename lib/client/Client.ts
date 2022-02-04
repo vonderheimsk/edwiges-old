@@ -48,10 +48,14 @@ export class Client extends EventEmitter {
             last_shard_id: options?.last_shard_id && options.last_shard_id > 0 ? options.last_shard_id : null || options?.shards && options.shards > 1 ? (options?.shards || 0) - 1 : null || 0,
             shards: options?.shards && options.shards > 0 ? options.shards : null || ((options?.last_shard_id || 0) - (options?.first_shard_id || 0)) + 1 || 1,
             connectOneShardAtTime: options?.connectOneShardAtTime ?? true,
-        }
+            alwaysSendAuthorizationOnRequest: options?.alwaysSendAuthorizationOnRequest ?? false,
+        };
 
         this.shards = new GatewayManager(this, this.#token);
-        this.rest = new RequestManager(this, this.#token);
+        this.rest = new RequestManager(this, this.#token, {
+            api_version: this.options.api_version,
+            alwaysSendAuthorization: this.options.alwaysSendAuthorizationOnRequest,
+        });
     }
 
     /**

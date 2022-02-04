@@ -4,4 +4,5 @@ export default interface ClientOptions {
     last_shard_id?: number;
     shards?: number;
     connectOneShardAtTime?: boolean;
+    alwaysSendAuthorizationOnRequest?: boolean;
 }
