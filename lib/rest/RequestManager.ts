@@ -64,6 +64,14 @@ export class RequestManager {
             if (!httpMethods[options.method]) {
                 throw new Error('Invalid method');
             }
+
+            if (typeof options.endpoint !== 'string') {
+                throw new Error('Invalid endpoint');
+            }
+
+            if (options.endpoint.startsWith('/')) {
+                options.endpoint = options.endpoint.substring(1);
+            }
     
             const requestOptions: ReqOptions = {
                 host: 'discord.com',
