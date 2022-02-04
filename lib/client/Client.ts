@@ -43,7 +43,7 @@ export class Client extends EventEmitter {
 
         this.#token = token;
         this.options = {
-            gateway_version: options?.gateway_version || 9,
+            api_version: options?.api_version || 9,
             first_shard_id: options?.first_shard_id || 0,
             last_shard_id: options?.last_shard_id && options.last_shard_id > 0 ? options.last_shard_id : null || options?.shards && options.shards > 1 ? (options?.shards || 0) - 1 : null || 0,
             shards: options?.shards && options.shards > 0 ? options.shards : null || ((options?.last_shard_id || 0) - (options?.first_shard_id || 0)) + 1 || 1,

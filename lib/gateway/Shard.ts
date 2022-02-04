@@ -50,7 +50,7 @@ export class Shard extends EventEmitter {
         this.onMessage = this.onMessage.bind(this);
     }
 
-    public emit(event: string, ...args: Array<any>): void {
+    public _emit(event: string, ...args: Array<any>) {
         this.#client.emit(event, ...args);
     }
 
@@ -58,7 +58,7 @@ export class Shard extends EventEmitter {
      * Connects to the gateway.
      */
     public async connect() {
-        let ws = this.gateway = new WS(`wss://gateway.discord.gg/?v${this.#client.options.gateway_version}&encoding=json`);
+        let ws = this.gateway = new WS(`wss://gateway.discord.gg/?v${this.#client.options.api_version}&encoding=json`);
 
         ws.onopen = this.onOpen;
         ws.onmessage = this.onMessage;
@@ -69,7 +69,7 @@ export class Shard extends EventEmitter {
      * Called when the websocket is opened.
      * @param {WS.Event} payload The websocket event
      */
-    public onOpen(payload: WS.Event): void {
+    public onOpen(payload: WS.Event) {
         this.emit('shardInitialized', this.id);
     }
     
@@ -85,7 +85,7 @@ export class Shard extends EventEmitter {
      * Called when the websocket receives a message.
      * @param {WS.MessageEvent} payload The websocket event
      */
-    public onMessage(payload: WS.MessageEvent): void {
+    public async onMessage(payload: WS.MessageEvent) {
         //@ts-ignore
         const { op, d, t, s } = JSON.parse(payload.data);
 
@@ -130,43 +130,23 @@ export class Shard extends EventEmitter {
      * @param {string} event.t The event type
      * @param {any} event.d The event data 
      */
-    public onEvent(event: { t: string, d: any }) {
+    public async onEvent(event: { t: string, d: any }) {
         const { t, d } = event;
 
-        switch(t) {
-            case 'READY':
-                this.session_id = d.session_id;
-                this.#client.user = d.user;
-                
-                this.status = 'ready';
-                this.ready = true;
-                /**
-                 * Fires when the shard is ready.
-                 * @event Client#shardReady
-                 * @property {number} id The shard id
-                 */
-                this.emit('shardReady', this.id);
-                /**
-                 * Fires when the shard is ready.
-                 * @event Shard#shardReady
-                 * @property {number} id The shard id
-                 */
-                super.emit('shardReady', this.id);
-                break;
+        try {
+            let handler = await import(`../client/handlers/${t}`);
+            handler.default(this.#client, this, d);
+        } catch{}
 
-            case 'MESSAGE_CREATE':
-                this.emit('message', (d));
-                break;
-        }
     }
 
     /**
      * Identifies the client to the gateway.
      */
-    public identify(): void {
+    public identify() {
         let obj = {
             token: this.#token,
-            v: this.#client.options.gateway_version,
+            v: this.#client.options.api_version,
             compress: false,
             intents: 513,
             shard: (this.#client.options.last_shard_id || 0) > 0 ? [this.id, (this.#client.options.last_shard_id || 0) + 1] : undefined,
