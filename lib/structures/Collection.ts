@@ -3,7 +3,7 @@
  * @extends Map
  * @property {object} baseObject The base object.
  */
-export default class Collection extends Map {
+export class Collection extends Map {
     public baseObject: object;
 
     public constructor(baseObject: any) {

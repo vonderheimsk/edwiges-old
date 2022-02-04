@@ -1,14 +1,5 @@
-import Client from "./lib/client/Client";
-import GatewayManager from "./lib/gateway/GatewayManager";
-import Shard from "./lib/gateway/Shard";
-import Collection from "./lib/structures/Collection";
-import { ClientOptions, User } from "./interfaces";
-
-export {
-    Client,
-    GatewayManager,
-    Shard,
-    Collection,
-    ClientOptions,
-    User
-};
+export { Client } from "./lib/client/Client";
+export { GatewayManager } from "./lib/gateway/GatewayManager";
+export { Shard } from "./lib/gateway/Shard";
+export { Collection } from "./lib/structures/Collection";
+export { ClientOptions, User } from "./interfaces";

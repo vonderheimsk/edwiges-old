@@ -1,6 +1,6 @@
 import { ClientOptions } from "../../interfaces";
 import User from "../../interfaces/User";
-import GatewayManager from "../gateway/GatewayManager";
+import { GatewayManager } from "../gateway/GatewayManager";
 
 let EventEmitter;
 
@@ -20,8 +20,9 @@ try {
  * @property {User} user The user object.
  * @event {Client#ready} Emitted when the client is ready.
  * @event {Client#shardReady} Emitted when a shard is ready.
+ * @typedef {['ready', 'shardReady'], ...any} ClientEvents
  */
-export default class Client extends EventEmitter {
+export class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
     public user: User | null = null;
@@ -45,6 +46,14 @@ export default class Client extends EventEmitter {
         }
 
         this.shards = new GatewayManager(this, this.#token);
+    }
+
+    /**
+     * 
+     * @param {ClientEvents} args
+     */
+    public on(...args: any): void {
+        return super.on(...args);
     }
 
     /**

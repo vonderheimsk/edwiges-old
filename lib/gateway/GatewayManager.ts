@@ -1,12 +1,12 @@
-import Client from "../client/Client";
-import Collection from "../structures/Collection";
-import Shard from "./Shard";
+import { Client } from "../client/Client";
+import { Collection } from "../structures/Collection";
+import { Shard } from "./Shard";
 
 /**
  * Represents a gateway manager.
  * @extends Collection
  */
-export default class GatewayManager extends Collection {
+export class GatewayManager extends Collection {
     #client: Client;
     #token: string;
 

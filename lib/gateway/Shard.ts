@@ -1,4 +1,4 @@
-import Client from "../client/Client";
+import { Client } from "../client/Client";
 import WS from 'ws';
 let EventEmitter;
 
@@ -21,7 +21,7 @@ try {
  * @property {number} seq The sequence number.
  * @property {number} session_id The session id.
  */
-export default class Shard extends EventEmitter {
+export class Shard extends EventEmitter {
     #client: Client;
     #token: string;
     public id: number;
