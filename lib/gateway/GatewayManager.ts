@@ -47,6 +47,11 @@ export class GatewayManager extends Collection {
                 let connectedShards = Array.from(this.values()).filter(shard => shard.ready);
 
                 if(connectedShards.length >= (this.#client.options.shards || 0)) {
+                    /**
+                     * Fires when all shards are ready.
+                     * @event Client#ready
+                     * @prop {Client} client The client object.
+                     */
                     this.#client.emit('ready', this.#client);
                 } else if(this.#client.options.connectOneShardAtTime === true) {
                     this.spawn(id + 1);

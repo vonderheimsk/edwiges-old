@@ -1,6 +1,6 @@
+import { GatewayManager } from './../gateway/GatewayManager';
 import { ClientOptions } from "../../interfaces";
 import User from "../../interfaces/User";
-import { GatewayManager } from "../gateway/GatewayManager";
 
 let EventEmitter;
 
@@ -18,9 +18,6 @@ try {
  * @property {ClientOptions} options The client's options.
  * @property {GatewayManager} shards The shards list.
  * @property {User} user The user object.
- * @event {Client#ready} Emitted when the client is ready.
- * @event {Client#shardReady} Emitted when a shard is ready.
- * @typedef {['ready', 'shardReady'], ...any} ClientEvents
  */
 export class Client extends EventEmitter {
     #token: string;
@@ -31,7 +28,12 @@ export class Client extends EventEmitter {
     /**
      * Create a client instace.
      * @param {string} token The Discord account token.
-     * @param {object} options Client options.'
+     * @param {object} options Client options.
+     * @param {number} [options.gateway_version] The gateway version.
+     * @param {number} [options.first_shard_id] The first shard id.
+     * @param {number} [options.last_shard_id] The last shard id.
+     * @param {number} [options.shards] The number of shards.
+     * @param {boolean} [options.connectOneShardAtTime] Connect one shard at time.
      */
     constructor(token: string, options?: ClientOptions) {
         super();
@@ -46,14 +48,6 @@ export class Client extends EventEmitter {
         }
 
         this.shards = new GatewayManager(this, this.#token);
-    }
-
-    /**
-     * 
-     * @param {ClientEvents} args
-     */
-    public on(...args: any): void {
-        return super.on(...args);
     }
 
     /**

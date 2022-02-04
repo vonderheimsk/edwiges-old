@@ -140,7 +140,17 @@ export class Shard extends EventEmitter {
                 
                 this.status = 'ready';
                 this.ready = true;
+                /**
+                 * Fires when the shard is ready.
+                 * @event Client#shardReady
+                 * @property {number} id The shard id
+                 */
                 this.emit('shardReady', this.id);
+                /**
+                 * Fires when the shard is ready.
+                 * @event Shard#shardReady
+                 * @property {number} id The shard id
+                 */
                 super.emit('shardReady', this.id);
                 break;
 
