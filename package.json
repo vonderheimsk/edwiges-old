@@ -3,7 +3,7 @@
   "author": {
     "name": "Heimsk"
   },
-  "version": "1.0.1",
+  "version": "1.0.0",
   "typings": "dist/index.d.ts",
   "main": "dist/index.js",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "tsc && node .",
     "start": "node .",
-    "test": "node index.test.js"
+    "test": "tsc && node dist/index.test.js"
   },
   "dependencies": {
     "ws": "^8.4.2"

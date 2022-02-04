@@ -1,4 +1,5 @@
-import { GatewayManager } from './../gateway/GatewayManager';
+import { RequestManager } from './../rest/RequestManager';
+import { GatewayManager } from '../gateway/GatewayManager';
 import { ClientOptions } from "../../interfaces";
 import User from "../../interfaces/User";
 
@@ -18,12 +19,14 @@ try {
  * @property {ClientOptions} options The client's options.
  * @property {GatewayManager} shards The shards list.
  * @property {User} user The user object.
+ * @property {RequestManager} rest The request manager.
  */
 export class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
     public user: User | null = null;
     public shards: GatewayManager;
+    public rest: RequestManager;
 
     /**
      * Create a client instace.
@@ -48,15 +51,13 @@ export class Client extends EventEmitter {
         }
 
         this.shards = new GatewayManager(this, this.#token);
+        this.rest = new RequestManager(this, this.#token);
     }
 
     /**
      * Connect the client to the Discord's gateway.
-     * @returns {boolean} Returns true if 
      */
-    public setup(): boolean {
-        this.shards.setup();
-
-        return true;
+    public async setup() {
+        await this.shards.setup();
     }
 }

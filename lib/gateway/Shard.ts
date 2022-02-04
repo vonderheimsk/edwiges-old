@@ -57,7 +57,7 @@ export class Shard extends EventEmitter {
     /**
      * Connects to the gateway.
      */
-    public connect(): void {
+    public async connect() {
         let ws = this.gateway = new WS(`wss://gateway.discord.gg/?v${this.#client.options.gateway_version}&encoding=json`);
 
         ws.onopen = this.onOpen;
@@ -172,8 +172,8 @@ export class Shard extends EventEmitter {
             shard: (this.#client.options.last_shard_id || 0) > 0 ? [this.id, (this.#client.options.last_shard_id || 0) + 1] : undefined,
             properties: {
                 $os: process.platform,
-                $browser: 'Edwiges',
-                $device: 'Edwiges'
+                $browser: 'Edwiges/1.0.0',
+                $device: 'Edwiges/1.0.0',
             },
         }
 

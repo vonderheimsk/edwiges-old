@@ -23,15 +23,14 @@ export class GatewayManager extends Collection {
 
     /**
      * Initialize the gateway manager.
-     * @returns {void}
      */
-    public setup(): void {
+    public async setup() {
         if(this.#client.options.connectOneShardAtTime !== true) {
             for(let i = 0; i < (this.#client.options.shards || 0); i++) {
-                this.spawn((this.#client.options.first_shard_id || 0) + i);
+                await this.spawn((this.#client.options.first_shard_id || 0) + i);
             }
         } else {
-            this.spawn(this.#client.options.first_shard_id || 0);
+            await this.spawn(this.#client.options.first_shard_id || 0);
         }
     }
 
@@ -39,11 +38,11 @@ export class GatewayManager extends Collection {
      * Initialize a shard.
      * @param {number} id The shard's id.
      */
-    public spawn(id: number) {
+    public async spawn(id: number) {
         let shard = this.get<Shard>(id);
         if(!shard) {
             shard = super.set(id, new Shard(this.#client, this.#token, id));
-            shard.on('shardReady', (id: number) => {
+            shard.on('shardReady', async (id: number) => {
                 let connectedShards = Array.from(this.values()).filter(shard => shard.ready);
 
                 if(connectedShards.length >= (this.#client.options.shards || 0)) {
@@ -54,13 +53,13 @@ export class GatewayManager extends Collection {
                      */
                     this.#client.emit('ready', this.#client);
                 } else if(this.#client.options.connectOneShardAtTime === true) {
-                    this.spawn(id + 1);
+                    await this.spawn(id + 1);
                 }
             });
         }
         
         if(shard) {
-            shard.connect();
+            await shard.connect();
         }
     }
 }
