@@ -45,7 +45,7 @@ export class Client extends EventEmitter {
         this.#token = token;
 
         if(options.api_version && ![6, 7, 8, 9].includes(options.api_version)) {
-            throw new Error('Invalid api version.');
+            throw Error('Api version must be 6, 7, 8, or 9');
         }
 
         if(options.first_shard_id && typeof options.first_shard_id !== 'number') {

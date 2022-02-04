@@ -24,12 +24,16 @@ export class RequestManager {
      * @param {Client} client The client's object. 
      * @param {string} token The client's token.
      * @param {RequestManagerOptions} options The request manager options.
-     * @param {number} options.api_version The API version.
-     * @param {boolean} options.alwaysSendAuthorization Whether to always send authorization headers.
+     * @param {number} [options.api_version=9] The API version.
+     * @param {boolean} [options.alwaysSendAuthorization=false] Whether to always send authorization headers.
      */
     public constructor(client: Client, token: string, options?: RequestManagerOptions) {
         this.#client = client;
         this.#token = token;
+
+        if(options?.api_version && ![6, 7, 8, 9].includes(options.api_version)) {
+            throw new Error('Api version must be 6, 7, 8 or 9');
+        }
 
         this.options = {
             api_version: options?.api_version || 9,
