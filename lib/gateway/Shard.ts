@@ -58,7 +58,7 @@ export class Shard extends EventEmitter {
      * Connects to the gateway.
      */
     public async connect() {
-        let ws = this.gateway = new WS(`wss://gateway.discord.gg/?v${this.#client.options.api_version}&encoding=json`);
+        let ws = this.gateway = new WS(`${this.#client.gateway_url}/?v${this.#client.options.api_version}&encoding=json`);
 
         ws.onopen = this.onOpen;
         ws.onmessage = this.onMessage;

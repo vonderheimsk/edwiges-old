@@ -27,6 +27,7 @@ export class Client extends EventEmitter {
     public user: User | null = null;
     public shards: GatewayManager;
     public rest: RequestManager;
+    public gateway_url?: string;
 
     /**
      * Create a client instace.
@@ -62,6 +63,12 @@ export class Client extends EventEmitter {
      * Connect the client to the Discord's gateway.
      */
     public async setup() {
-        await this.shards.setup();
+        try {
+            let res = await this.rest.request({ method: 'get', endpoint: 'gateway/bot', authorization: true });
+            this.gateway_url = res.url;
+            await this.shards.setup();
+        } catch {
+            throw new Error('Unable to connect to the gateway.');
+        }
     }
 }

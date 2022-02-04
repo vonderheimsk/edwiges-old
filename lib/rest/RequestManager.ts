@@ -3,7 +3,7 @@ import { request, RequestOptions as ReqOptions } from "https";
 import RequestManagerOptions from '../../interfaces/RequestManagerOptions';
 
 export interface RequestOptions {
-    method: 'get' | 'post' | 'put' | 'patch' | 'delete' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    method: 'get' | 'post' | 'put' | 'patch' | 'delete';
     endpoint: string;
     authorization?: boolean;
     data?: any;
@@ -60,9 +60,7 @@ export class RequestManager {
             if (!options.method || !options.endpoint) {
                 throw new Error('Missing method or endpoint');
             }
-            // @ts-ignore
-            options.method = options.method.toLowerCase();
-            // @ts-ignore
+
             if (!httpMethods[options.method]) {
                 throw new Error('Invalid method');
             }
@@ -70,7 +68,6 @@ export class RequestManager {
             const requestOptions: ReqOptions = {
                 host: 'discord.com',
                 path: `/api/v${this.options.api_version}/${options.endpoint}`,
-                // @ts-ignore
                 method: httpMethods[options.method],
                 headers: {
                     'Authorization': `${options.authorization ? `Bot ${this.#token}` : this.options.alwaysSendAuthorization ? `Bot ${this.#token}` : ''}`,
