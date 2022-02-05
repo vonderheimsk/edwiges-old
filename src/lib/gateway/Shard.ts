@@ -1,4 +1,4 @@
-import { Client } from "../client/Client";
+import { Client } from "@client/Client";
 import WS from 'ws';
 let EventEmitter;
 

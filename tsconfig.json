@@ -1,20 +1,27 @@
 {
   "compilerOptions": {
     "lib": [
-      "es5"
+      "es6"
     ],
     "target": "es2017",                            
     "experimentalDecorators": true,                   
     "emitDecoratorMetadata": true,                    
     "module": "commonjs",                                
-    "rootDir": "./src",                                  
-    "moduleResolution": "node",                       
-    "baseUrl": "./",                               
+    "rootDir": "./src",      
+    "esModuleInterop": true,                            
+    "moduleResolution": "node",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "resolveJsonModule": true,
+    "baseUrl": ".",                               
     "paths": {
-      "@client/*": ["./src/client/*"],
-      "@gateway/*": ["./src/gateway/*"],
-      "@rest/*": ["./src/rest/*"],
-      "@structures/*": ["./src/structures/*"]
+      "@client/*": ["./src/lib/client/*"],
+      "@gateway/*": ["./src/lib/gateway/*"],
+      "@rest/*": ["./src/lib/rest/*"],
+      "@structures/*": ["./src/lib/structures/*"],
+      "@interfaces/*": ["./src/lib/interfaces/*"]
     },
     "strict": true,
   },

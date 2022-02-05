@@ -5,13 +5,13 @@ export default interface User {
     avatar: string;
     discriminator: string;
     banner?: string;
-    accent_color?: BigInteger
+    accent_color?: number
     system?: boolean;
     mfa_enabled?: boolean;
     email?: string;
     bot?: boolean;
     flags?: number;
     locale?: string;
-    premium_type?: BigInteger;
-    public_flags?: BigInteger;
+    premium_type?: number;
+    public_flags?: number;
 }

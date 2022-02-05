@@ -1,4 +1,4 @@
-import { RequestManager } from './../lib/rest/RequestManager';
+import { RequestManager } from '@rest/RequestManager';
 import ClientOptions from "./ClientOptions";
 import User from "./User";
 

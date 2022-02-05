@@ -1,6 +1,6 @@
-import { Client } from '../client/Client';
+import { Client } from '@client/Client';
 import { request, RequestOptions as ReqOptions } from "https";
-import RequestManagerOptions from '../../interfaces/RequestManagerOptions';
+import RequestManagerOptions from '@interfaces/RequestManagerOptions';
 
 export interface RequestOptions {
     method: 'get' | 'post' | 'put' | 'patch' | 'delete';

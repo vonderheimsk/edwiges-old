@@ -1,7 +1,6 @@
-import { RequestManager } from './../rest/RequestManager';
-import { GatewayManager } from '../gateway/GatewayManager';
-import { ClientOptions } from "../../interfaces";
-import User from "../../interfaces/User";
+import { RequestManager } from '@rest/RequestManager';
+import { GatewayManager } from '@gateway/GatewayManager';
+import { ClientOptions, User } from "@interfaces/index";
 
 let EventEmitter;
 

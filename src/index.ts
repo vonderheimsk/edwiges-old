@@ -1,7 +1,7 @@
-export { Client } from "./lib/client/Client";
-export { GatewayManager } from "./lib/gateway/GatewayManager";
-export { Shard } from "./lib/gateway/Shard";
-export { Collection } from "./lib/structures/Collection";
-export { RequestManager } from "./lib/rest/RequestManager";
+export { Client } from "@client/Client";
+export { GatewayManager } from "@gateway/GatewayManager";
+export { Shard } from "@gateway/Shard";
+export { Collection } from "@structures/Collection";
+export { RequestManager } from "@rest/RequestManager";
 
-export * from "./interfaces";
+export * from "./lib/interfaces";

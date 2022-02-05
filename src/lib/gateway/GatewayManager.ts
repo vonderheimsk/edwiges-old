@@ -1,5 +1,5 @@
-import { Client } from "../client/Client";
-import { Collection } from "../structures/Collection";
+import { Client } from "@client/Client";
+import { Collection } from "@structures/Collection";
 import { Shard } from "./Shard";
 
 /**
