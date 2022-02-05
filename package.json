@@ -15,14 +15,20 @@
   },
   "scripts": {
     "dev": "tsc && node .",
-    "start": "node .",
+    "build": "babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
     "test": "tsc && node dist/index.test.js"
   },
   "dependencies": {
     "ws": "^8.4.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@types/node": "^17.0.14",
-    "@types/ws": "^8.2.2"
+    "@types/ws": "^8.2.2",
+    "babel-plugin-module-resolver": "^4.1.0"
   }
 }
