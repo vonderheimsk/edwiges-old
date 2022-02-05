@@ -16,6 +16,7 @@
   "scripts": {
     "dev": "tsc && node .",
     "build": "babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
+    "declare": "tsc --emitDeclarationOnly --declaration --outDir dist",
     "test": "tsc && node dist/index.test.js"
   },
   "dependencies": {

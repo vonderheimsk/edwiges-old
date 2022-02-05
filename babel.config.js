@@ -12,12 +12,13 @@ module.exports = {
     ],
     plugins: [
         ['module-resolver', {
+            root: ['./src/'],
             alias: {
-                "@client": ["./src/lib/client"],
-                "@gateway": ["./src/lib/gateway"],
-                "@rest": ["./src/lib/rest"],
-                "@structures": ["./src/lib/structures"],
-                "@interfaces": ["./src/lib/interfaces"]
+                "@client": "./src/lib/client",
+                "@gateway": "./src/lib/gateway",
+                "@rest": "./src/lib/rest",
+                "@structures": "./src/lib/structures",
+                "@interfaces": "./src/lib/interfaces"
             } 
         }]
     ],
