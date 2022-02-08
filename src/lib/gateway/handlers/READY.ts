@@ -1,5 +1,5 @@
 import { Shard } from "../../..";
-import { Client } from "../Client";
+import { Client } from "../../client/Client";
 
 export default (client: Client, shard: Shard, d: any) => {
         shard.session_id = d.session_id;
