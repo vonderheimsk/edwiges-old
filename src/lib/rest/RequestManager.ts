@@ -1,6 +1,13 @@
 import { Client } from '@client/Client';
 import { request, RequestOptions as ReqOptions } from "https";
 import RequestManagerOptions from '@interfaces/RequestManagerOptions';
+let EventEmitter;
+
+try {
+    EventEmitter = require('eventemitter3');
+} catch {
+    EventEmitter = require('events');
+}
 
 export interface RequestOptions {
     method: 'get' | 'post' | 'put' | 'patch' | 'delete';
@@ -14,7 +21,7 @@ export interface RequestOptions {
  * Represents a request manager.
  * @property {RequestManagerOptions} options The request options.
  */
-export class RequestManager {
+export class RequestManager extends EventEmitter {
     #client: Client;
     #token: string;
     public options: RequestManagerOptions;
@@ -28,6 +35,7 @@ export class RequestManager {
      * @param {boolean} [options.alwaysSendAuthorization=false] Whether to always send authorization headers.
      */
     public constructor(client: Client, token: string, options?: RequestManagerOptions) {
+        super()
         this.#client = client;
         this.#token = token;
 
@@ -104,6 +112,12 @@ export class RequestManager {
                         } else {
                             reject(`${response.statusCode}: ${body}`);
                         }
+
+                        this.emit('request', {
+                            response,
+                            body: JSON.parse(body),
+                            request: options
+                        });
                     });
                 });
 

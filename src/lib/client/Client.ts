@@ -1,6 +1,7 @@
+import { CacheManager } from './../cache/CacheManager';
 import { RequestManager } from '@rest/RequestManager';
 import { GatewayManager } from '@gateway/GatewayManager';
-import { ClientOptions, User } from "@interfaces/index";
+import { ClientOptions, UserInterface } from "@interfaces/index";
 
 let EventEmitter;
 
@@ -23,10 +24,11 @@ try {
 export class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
-    public user: User | null = null;
+    public user: UserInterface | null = null;
     public shards: GatewayManager;
     public rest: RequestManager;
     public gateway_url?: string;
+    public cache: CacheManager;
 
     /**
      * Create a client instace.
@@ -86,6 +88,7 @@ export class Client extends EventEmitter {
             api_version: this.options.api_version,
             alwaysSendAuthorization: this.options.alwaysSendAuthorizationOnRequest,
         });
+        this.cache = new CacheManager(this);
     }
 
     /**
