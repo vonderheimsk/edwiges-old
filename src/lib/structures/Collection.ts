@@ -3,13 +3,24 @@
  * @extends Map
  * @property {object} baseObject The base object.
  */
-export class Collection extends Map {
-    public baseObject: object;
+export class Collection<T extends unknown> extends Map {
+    public baseObject: any;
 
-    public constructor(baseObject: any) {
+    /**
+     * Creates a new collection.
+     * @param {any} baseObject The base object.
+     * @param {any[]} values The values to add.
+     */
+    public constructor(baseObject: any, values: any[] = []) {
         super();
 
         this.baseObject = baseObject;
+
+        if (Array.isArray(values)) {
+            for (let i = 0; i < values.length; i++) {
+                this.set(values[i].id || values[i].user?.id, values[i]);
+            }
+        }
     }
 
     /**
@@ -17,7 +28,7 @@ export class Collection extends Map {
      * @param {string} key The key to get.
      * @returns {T} Returns the value.
      */
-    public get<T extends unknown>(key: any): T {
+    public get(key: any): T | null {
         return super.get(key);
     }
 
@@ -27,8 +38,17 @@ export class Collection extends Map {
      * @param {T} value The value to set.
      * @returns {any} Returns the value.
      */
-    public set<T extends unknown>(key: any, value: T): T {
+    public set<A extends any, V extends T>(key: A, value: V): V {
         super.set(key, value);
         return value;
+    }
+
+    public random(): T | null {
+        let items = []
+        for(let val of this.values()) {
+            items.push(val);
+        }
+
+        return items[Math.floor(Math.random() * items.length)];
     }
 }

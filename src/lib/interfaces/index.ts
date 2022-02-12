@@ -1,9 +1,15 @@
-import { RequestManager } from '@rest/RequestManager';
+import GuildInterface from '@interfaces/Guild';
+import RequestManagerOptions from './RequestManagerOptions';
 import ClientOptions from "./ClientOptions";
-import User from "./User";
+import UserInterface from "./User";
+import MessageInterface from './Message';
+import GuildChannelInterface from './GuildChannel';
 
 export {
     ClientOptions,
-    User,
-    RequestManager
+    UserInterface,
+    RequestManagerOptions,
+    MessageInterface,
+    GuildChannelInterface,
+    GuildInterface
 };

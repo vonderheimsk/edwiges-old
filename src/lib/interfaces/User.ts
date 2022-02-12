@@ -1,17 +1,17 @@
-export default interface User {
+export default interface UserInterface {
     username: string;
-    string: string;
-    verified: boolean;
     avatar: string;
+    verified: boolean | null;
     discriminator: string;
-    banner?: string;
-    accent_color?: number
-    system?: boolean;
-    mfa_enabled?: boolean;
-    email?: string;
-    bot?: boolean;
-    flags?: number;
-    locale?: string;
-    premium_type?: number;
-    public_flags?: number;
+    banner: string | null;
+    accent_color: number | null;
+    system: boolean | null;
+    mfa_enabled: boolean;
+    email: string | null;
+    bot: boolean;
+    flags: number | null;
+    locale: string | null;
+    premium_type: number | null;
+    public_flags: number | null;
+    createdTimestamp: number | null;
 }

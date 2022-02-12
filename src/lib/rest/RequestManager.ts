@@ -70,15 +70,15 @@ export class RequestManager extends EventEmitter {
             }
     
             if (!options.method || !options.endpoint) {
-                throw new Error('Missing method or endpoint');
+                reject('Missing method or endpoint');
             }
 
             if (!httpMethods[options.method]) {
-                throw new Error('Invalid method');
+                reject('Invalid method');
             }
 
             if (typeof options.endpoint !== 'string') {
-                throw new Error('Invalid endpoint');
+                reject('Invalid endpoint');
             }
 
             if (options.endpoint.startsWith('/')) {

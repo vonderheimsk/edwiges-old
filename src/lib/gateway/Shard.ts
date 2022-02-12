@@ -27,12 +27,13 @@ export class Shard extends EventEmitter {
     public id: number;
     public gateway?: WS;
     public heartbeat_interval?: any;
-    public session_id?: number;
+    public session_id: number | null = null;
     public seq: number = 0;
-    public last_hearbeat_ack?: number;
-    public last_heartbeat_send?: number;
+    public last_hearbeat_ack: number = 0;
+    public last_heartbeat_send: number = 0;
     public status: string = 'disconnected';
     public ready: boolean = false;
+    public ping: number = 0;
 
     /**
      * Creates a new Shard instance
@@ -58,7 +59,7 @@ export class Shard extends EventEmitter {
      * Connects to the gateway.
      */
     public async connect() {
-        let ws = this.gateway = new WS(`${this.#client.gateway_url}/?v${this.#client.options.api_version}&encoding=json`);
+        let ws = this.gateway = new WS(`${this.#client.gateway_url}/?v=${this.#client.options.api_version}&encoding=json`);
 
         ws.onopen = this.onOpen;
         ws.onmessage = this.onMessage;
@@ -104,8 +105,14 @@ export class Shard extends EventEmitter {
                 }
                 break;
 
+            case 1:
+                this.heartbeat();
+                break;
+
             case 11:
+                console.log('ei');
                 this.last_hearbeat_ack = Date.now();
+                this.ping = this.last_hearbeat_ack - (this.last_heartbeat_send || 0)
                 break;
 
             case 0:
@@ -114,7 +121,7 @@ export class Shard extends EventEmitter {
 
             case 9:
                 this.seq = 0;
-                this.session_id = undefined;
+                this.session_id = null;
                 this.identify();
                 break;
 
@@ -158,6 +165,7 @@ export class Shard extends EventEmitter {
         }
 
         this.sendPayload({ op: 2, d: obj });
+        this.heartbeat();
     }
 
     /**

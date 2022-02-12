@@ -1,9 +1,10 @@
-import { Shard } from "../../..";
-import { Client } from "../../client/Client";
+import { Shard } from "@gateway/Shard";
+import { Client } from "@client/Client";
+import { User } from "@structures/User";
 
 export default (client: Client, shard: Shard, d: any) => {
         shard.session_id = d.session_id;
-        client.user = d.user;
+        client.user = new User(d.user);
         
         shard.status = 'ready';
         shard.ready = true;

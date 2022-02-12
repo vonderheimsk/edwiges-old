@@ -2,6 +2,7 @@ import { CacheManager } from './../cache/CacheManager';
 import { RequestManager } from '@rest/RequestManager';
 import { GatewayManager } from '@gateway/GatewayManager';
 import { ClientOptions, UserInterface } from "@interfaces/index";
+import { User } from '@structures/User';
 
 let EventEmitter;
 
@@ -20,11 +21,13 @@ try {
  * @property {GatewayManager} shards The shards list.
  * @property {User} user The user object.
  * @property {RequestManager} rest The request manager.
+ * @property {CacheManager} cache The cache manager.
+ * @property {number} ping The client's ping.
  */
 export class Client extends EventEmitter {
     #token: string;
     public options: ClientOptions;
-    public user: UserInterface | null = null;
+    public user: User | null;
     public shards: GatewayManager;
     public rest: RequestManager;
     public gateway_url?: string;
@@ -83,6 +86,7 @@ export class Client extends EventEmitter {
             alwaysSendAuthorizationOnRequest: options?.alwaysSendAuthorizationOnRequest ?? false,
         };
 
+        this.user = null;
         this.shards = new GatewayManager(this, this.#token);
         this.rest = new RequestManager(this, this.#token, {
             api_version: this.options.api_version,

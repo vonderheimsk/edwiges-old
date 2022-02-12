@@ -6,7 +6,7 @@ import { Shard } from "./Shard";
  * Represents a gateway manager.
  * @extends Collection
  */
-export class GatewayManager extends Collection {
+export class GatewayManager extends Collection<Shard> {
     #client: Client;
     #token: string;
 
@@ -39,7 +39,7 @@ export class GatewayManager extends Collection {
      * @param {number} id The shard's id.
      */
     public async spawn(id: number) {
-        let shard = this.get<Shard>(id);
+        let shard = this.get(id);
         if(!shard) {
             shard = super.set(id, new Shard(this.#client, this.#token, id));
             shard.on('shardReady', async (id: number) => {

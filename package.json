@@ -3,7 +3,7 @@
   "author": {
     "name": "Heimsk"
   },
-  "version": "1.0.0",
+  "version": "0.0.1",
   "typings": "dist/index.d.ts",
   "main": "dist/index.js",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "dev": "tsc && node .",
     "build": "babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
     "declare": "tsc --emitDeclarationOnly --declaration --outDir dist",
-    "test": "tsc && node dist/index.test.js"
+    "test": "babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored && node dist/index.test.js"
   },
   "dependencies": {
     "ws": "^8.4.2"
