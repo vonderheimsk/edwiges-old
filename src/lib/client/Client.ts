@@ -1,7 +1,7 @@
 import { CacheManager } from './../cache/CacheManager';
 import { RequestManager } from '@rest/RequestManager';
 import { GatewayManager } from '@gateway/GatewayManager';
-import { ClientOptions, UserInterface } from "@interfaces/index";
+import { ClientOptions, UserInterface } from "@interfaces";
 import { User } from '@structures/User';
 
 let EventEmitter;

@@ -1,6 +1,6 @@
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
-import { GuildInterface } from "@interfaces/index";
+import { GuildInterface } from "@interfaces";
 import { GuildChannel } from './GuildChannel';
 import { Member } from '@structures/Member';
 

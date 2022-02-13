@@ -1,6 +1,6 @@
 import { TextChannel } from './TextChannel';
 import { Client } from '@client/Client';
-import { GuildChannelInterface } from "@interfaces/index";
+import { GuildChannelInterface } from "@interfaces";
 import { Collection } from "./Collection";
 import { User } from "./User";
 

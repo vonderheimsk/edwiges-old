@@ -1,7 +1,7 @@
 import { GuildChannel } from '@structures/GuildChannel';
-import { TextChannel } from './TextChannel';
+import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
-import { MessageInterface } from "@interfaces/index";
+import { MessageInterface } from "@interfaces";
 import { User } from "@structures/User";
 import { Client } from '@client/Client';
 

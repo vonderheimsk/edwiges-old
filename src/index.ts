@@ -4,4 +4,4 @@ export { Shard } from "@gateway/Shard";
 export { Collection } from "@structures/Collection";
 export { RequestManager } from "@rest/RequestManager";
 
-export * from "@interfaces/index";
+export * from "@interfaces";

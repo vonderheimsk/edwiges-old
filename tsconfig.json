@@ -24,7 +24,8 @@
       "@gateway/*": ["./src/lib/gateway/*"],
       "@rest/*": ["./src/lib/rest/*"],
       "@structures/*": ["./src/lib/structures/*"],
-      "@interfaces/*": ["./src/lib/interfaces/*"]
+      "@interfaces/*": ["./src/lib/interfaces/*"],
+      "@interfaces": ["./src/lib/interfaces/index"],
     },
     "strict": true,
   },

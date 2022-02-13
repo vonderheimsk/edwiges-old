@@ -1,4 +1,4 @@
-import { UserInterface } from '@interfaces/index'
+import { UserInterface } from '@interfaces'
 
 /**
  * Represents a user.

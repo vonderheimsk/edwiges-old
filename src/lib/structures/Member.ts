@@ -1,4 +1,4 @@
-import MemberInterface from "@interfaces/Member";
+import { MemberInterface } from "@interfaces";
 import { Collection } from "@structures/Collection";
 import { User } from "@structures/User";
 
