@@ -4,6 +4,7 @@ import { Collection } from '@structures/Collection';
 import { MessageInterface } from "@interfaces";
 import { User } from "@structures/User";
 import { Client } from '@client/Client';
+import { Guild } from '@structures/Guild';
 
 /**
  * Represents a message.
@@ -69,6 +70,7 @@ export class Message implements MessageInterface {
     public sticker_items: Collection<any>;
     public channel: GuildChannel | TextChannel;
     public guild_id: string | null;
+    public guild: Guild | null;
     #client: Client;
 
     /**
@@ -91,10 +93,8 @@ export class Message implements MessageInterface {
         this.channel_id = data.channel_id;
         this.author = new User(data.author);
         this.guild_id = data.guild_id || null;
-
-        let guild = this.#client.cache?.guilds?.get(this.guild_id);
-
-        this.channel =  guild?.channels.get(this.channel_id) || guild?.threads.get(this.channel_id) || new TextChannel(data.channel_id, this.#client);
+        this.guild = this.#client.cache?.guilds?.get(this.guild_id) || null;
+        this.channel =  this.guild?.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id) || new TextChannel(data.channel_id, this.#client);
         if(!this.channel) {
             this.#client.rest.request({
                 endpoint: `/channels/${this.channel_id}`,

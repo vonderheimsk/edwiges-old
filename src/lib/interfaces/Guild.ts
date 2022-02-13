@@ -51,4 +51,5 @@ export default interface GuildInterface {
     stickers: Array<any> | [];
     guild_scheduled_events: Array<any> | [];
     premium_progress_bar_enabled: boolean | false;
+    shardID: number;
 }

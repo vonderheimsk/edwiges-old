@@ -59,7 +59,7 @@ export class Shard extends EventEmitter {
      * Connects to the gateway.
      */
     public async connect() {
-        let ws = this.gateway = new WS(`${this.#client.gateway_url}/?v=${this.#client.options.api_version}&encoding=json`);
+        let ws = this.gateway = new WS(`${this.#client.gateway_url}/?v=${this.#client.options.rest?.api_version}&encoding=json`);
 
         ws.onopen = this.onOpen;
         ws.onmessage = this.onMessage;
@@ -110,7 +110,6 @@ export class Shard extends EventEmitter {
                 break;
 
             case 11:
-                console.log('ei');
                 this.last_hearbeat_ack = Date.now();
                 this.ping = this.last_hearbeat_ack - (this.last_heartbeat_send || 0)
                 break;
@@ -141,7 +140,7 @@ export class Shard extends EventEmitter {
         const { t, d } = event;
 
         try {
-            let handler = await import(`./handlers/${t}`);
+            let handler = await import(`../handlers/${t}`);
             handler.default(this.#client, this, d);
         } catch{}
 
@@ -153,10 +152,10 @@ export class Shard extends EventEmitter {
     public identify() {
         let obj = {
             token: this.#token,
-            v: this.#client.options.api_version,
+            v: this.#client.options.rest?.api_version,
             compress: false,
             intents: 513,
-            shard: (this.#client.options.last_shard_id || 0) > 0 ? [this.id, (this.#client.options.last_shard_id || 0) + 1] : undefined,
+            shard: (this.#client.options.sharding?.last_shard_id || 0) > 0 ? [this.id, (this.#client.options.sharding?.last_shard_id || 0) + 1] : undefined,
             properties: {
                 $os: process.platform,
                 $browser: 'Edwiges/1.0.0',

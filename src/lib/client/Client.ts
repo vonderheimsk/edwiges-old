@@ -48,50 +48,52 @@ export class Client extends EventEmitter {
 
         this.#token = token;
 
-        if(options.api_version && ![6, 7, 8, 9].includes(options.api_version)) {
+        if(options.rest?.api_version && ![6, 7, 8, 9].includes(options.rest.api_version)) {
             throw Error('Api version must be 6, 7, 8, or 9');
         }
 
-        if(options.first_shard_id && typeof options.first_shard_id !== 'number') {
-            throw new TypeError('options.first_shard_id must be a number');
+        if(options.sharding?.first_shard_id && typeof options.sharding.first_shard_id !== 'number') {
+            throw new TypeError('options.sharding.first_shard_id must be a number');
         }
-        if(options.last_shard_id && typeof options.last_shard_id !== 'number') {
-            throw new TypeError('options.last_shard_id must be a number');
+        if(options.sharding?.last_shard_id && typeof options.sharding.last_shard_id !== 'number') {
+            throw new TypeError('options.sharding.last_shard_id must be a number');
         }
 
-        if(options.first_shard_id !== undefined && options.last_shard_id !== undefined) {
-            if(options.first_shard_id > options.last_shard_id) {
-                throw new RangeError('options.first_shard_id must be lower than options.last_shard_id');
+        if(options.sharding?.first_shard_id !== undefined && options.sharding.last_shard_id !== undefined) {
+            if(options.sharding?.first_shard_id > options.sharding?.last_shard_id) {
+                throw new RangeError('options.sharding.first_shard_id must be lower than options.sharding.last_shard_id');
             }
         }
 
-        if(options && options.shards && typeof options.shards !== 'number' && options.shards !== 'auto') {
-            throw new TypeError('options.shards must be a number or \'auto\'');
+        if(options.sharding && options.sharding?.totalShards && typeof options.sharding.totalShards !== 'number' && options.sharding.totalShards !== 'auto') {
+            throw new TypeError('options.sharding.totalShards must be a number or \'auto\'');
         }
         
-        if(options.connectOneShardAtTime && typeof options.connectOneShardAtTime !== 'boolean') {
-            throw new TypeError('options.connectOneShardAtTime must be a boolean');
+        if(options.sharding?.connectOneShardAtTime && typeof options.sharding.connectOneShardAtTime !== 'boolean') {
+            throw new TypeError('options.sharding.connectOneShardAtTime must be a boolean');
         }
 
-        if(options.alwaysSendAuthorizationOnRequest && typeof options.alwaysSendAuthorizationOnRequest !== 'boolean') {
+        if(options.rest?.alwaysSendAuthorizationOnRequest && typeof options.rest.alwaysSendAuthorizationOnRequest !== 'boolean') {
             throw new TypeError('options.alwaysSendAuthorizationOnRequest must be a boolean');
         }
 
         this.options = {
-            api_version: options?.api_version || 9,
-            first_shard_id: options?.first_shard_id || 0,
-            last_shard_id: options?.last_shard_id && options.last_shard_id > 0 ? options.last_shard_id : null || options?.shards && options.shards > 1 ? (typeof options?.shards === 'number' ? options?.shards : null || 0) - 1 : null || 0,
-            shards: options?.shards && (options.shards > 0 || typeof options.shards === 'number') ? options.shards : null || ((options?.last_shard_id || 0) - (options?.first_shard_id || 0)) + 1 || 1,
-            connectOneShardAtTime: options?.connectOneShardAtTime ?? true,
-            alwaysSendAuthorizationOnRequest: options?.alwaysSendAuthorizationOnRequest ?? false,
+            rest: {
+                api_version: options?.rest?.api_version || 9,
+                alwaysSendAuthorizationOnRequest: options?.rest?.alwaysSendAuthorizationOnRequest ?? false,
+            },
+            sharding: {
+                first_shard_id: options?.sharding?.first_shard_id || 0,
+                last_shard_id: options?.sharding?.last_shard_id && options.sharding.last_shard_id > 0 ? options.sharding.last_shard_id : null || options?.sharding?.totalShards && options.sharding.totalShards > 1 ? (typeof options?.sharding?.totalShards === 'number' ? options?.sharding?.totalShards : null || 0) - 1 : null || 0,
+                totalShards: options?.sharding?.totalShards && (options.sharding.totalShards > 0 || typeof options.sharding.totalShards === 'number') ? options.sharding.totalShards : null || ((options?.sharding?.last_shard_id || 0) - (options?.sharding?.first_shard_id || 0)) + 1 || 1,
+                connectOneShardAtTime: options?.sharding?.connectOneShardAtTime ?? true,
+            }
+            
         };
 
         this.user = null;
         this.shards = new GatewayManager(this, this.#token);
-        this.rest = new RequestManager(this, this.#token, {
-            api_version: this.options.api_version,
-            alwaysSendAuthorization: this.options.alwaysSendAuthorizationOnRequest,
-        });
+        this.rest = new RequestManager(this, this.#token, this.options.rest);
         this.cache = new CacheManager(this);
     }
 
@@ -102,10 +104,10 @@ export class Client extends EventEmitter {
         try {
             let res = await this.rest.request({ method: 'get', endpoint: 'gateway/bot', authorization: true });
             this.gateway_url = res.url;
-            if(this.options.shards === 'auto') {
-                this.options.shards = res.shards;
-                this.options.first_shard_id = 0;
-                this.options.last_shard_id = res.shards - 1;
+            if(this.options?.sharding?.totalShards === 'auto') {
+                this.options.sharding.totalShards = res.shards;
+                this.options.sharding.first_shard_id = 0;
+                this.options.sharding.last_shard_id = res.shards - 1;
             }
             await this.shards.setup();
         } catch {

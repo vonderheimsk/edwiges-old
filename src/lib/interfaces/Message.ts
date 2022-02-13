@@ -1,6 +1,7 @@
 import { GuildChannel } from '@structures/GuildChannel';
 import { Collection } from '@structures/Collection';
 import { User } from "@structures/User";
+import { Guild } from '@structures/Guild';
 
 export default interface MessageInterface {
     id: string;
@@ -30,4 +31,5 @@ export default interface MessageInterface {
     interaction: any;
     stickers: any;
     sticker_items: Collection<any> | null;
+    guild: Guild | null;
 }

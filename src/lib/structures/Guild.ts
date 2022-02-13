@@ -103,7 +103,8 @@ export class Guild implements GuildInterface {
     public verification_level: number;
     public voice_states: any[];
     public banner: string | null;
-    public nsfw_level: number
+    public nsfw_level: number;
+    public shardID: number;
     #client: Client
 
     /**
@@ -125,6 +126,7 @@ export class Guild implements GuildInterface {
         this.id = data.id;
         this.name = data.name;
         this.icon = data.icon;
+        this.shardID = data.shardID || 0;
         this.icon_hash = data.icon_hash;
         this.owner_id = data.owner_id;
         this.channels = new Collection(GuildChannel,  Array.isArray(data.channels) ? data.channels.map((channel: any) => new GuildChannel(channel, this.#client)) : data.channels);

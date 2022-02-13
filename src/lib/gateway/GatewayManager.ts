@@ -25,12 +25,12 @@ export class GatewayManager extends Collection<Shard> {
      * Initialize the gateway manager.
      */
     public async setup() {
-        if(this.#client.options.connectOneShardAtTime !== true) {
-            for(let i = 0; i < (this.#client.options.shards || 0); i++) {
-                await this.spawn((this.#client.options.first_shard_id || 0) + i);
+        if(this.#client.options.sharding?.connectOneShardAtTime !== true) {
+            for(let i = 0; i < (this.#client.options.sharding?.totalShards || 0); i++) {
+                await this.spawn((this.#client.options.sharding?.first_shard_id || 0) + i);
             }
         } else {
-            await this.spawn(this.#client.options.first_shard_id || 0);
+            await this.spawn(this.#client.options.sharding?.first_shard_id || 0);
         }
     }
 
@@ -45,14 +45,14 @@ export class GatewayManager extends Collection<Shard> {
             shard.on('shardReady', async (id: number) => {
                 let connectedShards = Array.from(this.values()).filter(shard => shard.ready);
 
-                if(connectedShards.length >= (this.#client.options.shards || 0)) {
+                if(connectedShards.length >= (this.#client.options.sharding?.totalShards || 0)) {
                     /**
                      * Fires when all shards are ready.
                      * @event Client#ready
                      * @prop {Client} client The client object.
                      */
                     this.#client.emit('ready', this.#client);
-                } else if(this.#client.options.connectOneShardAtTime === true) {
+                } else if(this.#client.options.sharding?.connectOneShardAtTime === true) {
                     await this.spawn(id + 1);
                 }
             });

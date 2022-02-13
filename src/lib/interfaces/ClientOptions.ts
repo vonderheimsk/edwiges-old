@@ -1,8 +1,16 @@
-export default interface ClientOptions {
+export interface ClientRestOptions {
     api_version?: 6 | 7 | 8 | 9;
+    alwaysSendAuthorizationOnRequest?: boolean;
+}
+
+export interface ClientShardingOptions {
     first_shard_id?: number;
     last_shard_id?: number;
-    shards?: number | 'auto';
+    totalShards?: number | 'auto';
     connectOneShardAtTime?: boolean;
-    alwaysSendAuthorizationOnRequest?: boolean;
+}
+
+export interface ClientOptions {
+    rest?: ClientRestOptions;
+    sharding?: ClientShardingOptions;
 }
