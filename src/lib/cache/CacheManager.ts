@@ -35,7 +35,7 @@ export class CacheManager {
 
             if(/(\/)?channels\/\d+/gm.test(data.request.endpoint)) {
                 let guild = this.guilds.get(data.body.guild_id);
-                // guild?.channels.set(data.body.id, new GuildChannel(data.body, this.#client));
+                guild?.channels.set(data.body.id, new GuildChannel(data.body, this.#client));
             }
         })
     }
