@@ -1,12 +1,12 @@
+import { GuildChannel } from '@structures/GuildChannel';
 import { Client } from '@client/Client';
 import { Message } from '@structures/Message';
 
 /**
  * Represents a text channel.
- * @property {string} id The channel ID.
+ * @extends {GuildChannel}
  */
-export class TextChannel {
-    public id: string;
+export class TextChannel extends GuildChannel {
     #client: Client;
 
     /**
@@ -14,22 +14,16 @@ export class TextChannel {
      * @param id The channel ID.
      * @param client The client instance.
      */
-    public constructor(id: string, client: Client) {
-        if(!id) {
-            throw new Error('Invalid id');
-        }
-        if(!client) {
-            throw new Error('Invalid client');
-        }
+    public constructor(data: any, client: Client) {
+        super(data, client);
 
         this.#client = client;
-        this.id = id;
     }
 
     /**
      * Sends a message to the channel.
      * @param content The message content.
-     * @returns {Message} The sent message.
+     * @returns {Promise<Message>} The sent message.
      */
     public async sendMessage(content: string): Promise<Message> {
         try {

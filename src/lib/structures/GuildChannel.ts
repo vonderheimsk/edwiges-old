@@ -32,7 +32,7 @@ import { User } from "./User";
  * @property {number|null} default_auto_archive_duration The default auto archive duration.
  * @property {string|null} permissions The channel permissions.
  */
-export class GuildChannel extends TextChannel implements GuildChannelInterface {
+export class GuildChannel implements GuildChannelInterface {
     public id: string;
     public name: string;
     public type: string;
@@ -67,7 +67,6 @@ export class GuildChannel extends TextChannel implements GuildChannelInterface {
      * @param {Client} client The client instance.
      */
     public constructor(data: any, client: Client) {
-        super(data.id, client);
         if (!data.id || !data.name || data.type === undefined) {
             throw new Error("Invalid guild channel data");
         }
