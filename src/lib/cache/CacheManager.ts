@@ -1,8 +1,8 @@
+import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from "@client/Client";
 import { User } from '@structures/User';
 import { Guild } from '@structures/Guild';
-import { GuildChannel } from '@structures/GuildChannel';
 
 /**
  * Represents a cache manager.
@@ -35,7 +35,7 @@ export class CacheManager {
 
             if(/(\/)?channels\/\d+/gm.test(data.request.endpoint)) {
                 let guild = this.guilds.get(data.body.guild_id);
-                guild?.channels.set(data.body.id, new GuildChannel(data.body, this.#client));
+                guild?.channels.set(data.body.id, new TextChannel(data.body, this.#client));
             }
         })
     }

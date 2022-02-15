@@ -93,7 +93,7 @@ export class Message implements MessageInterface {
         this.channel_id = data.channel_id;
         this.author = new User(data.author);
         this.guild_id = data.guild_id || null;
-        this.guild = this.#client.cache?.guilds?.get(this.guild_id) || null;
+        this.guild = this.#client.cache.guilds.get(this.guild_id);
         this.channel =  this.guild?.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id) || new TextChannel(data.channel_id, this.#client);
         if(!this.channel) {
             this.#client.rest.request({

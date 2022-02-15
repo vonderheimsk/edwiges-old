@@ -1,3 +1,4 @@
+import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
 import { GuildInterface } from "@interfaces";
@@ -80,7 +81,7 @@ export class Guild implements GuildInterface {
     public roles: Collection<any>;
     public rules_channel_id: string | null;
     public splash: string;
-    public threads: Collection<any>;
+    public threads: Collection<TextChannel>;
     public unavailable: boolean;
     public permissions: number | null;
     public preferred_locale: string | null;
