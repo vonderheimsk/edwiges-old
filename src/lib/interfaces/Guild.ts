@@ -27,14 +27,14 @@ export default interface GuildInterface {
     joinedTimestamp: number;
     large: boolean;
     unavailable: boolean;
-    member_count: number | 0;
+    member_count: number | null;
     voice_states: Array<any> | [];
     members: Collection<any>;
     channels: Collection<GuildChannel>;
     threads: Collection<any>;
     presences: Collection<any>;
-    max_presences: number | 0;
-    max_members: number | 0;
+    max_presences: number | null;
+    max_members: number | null;
     vanity_url_code: string | null;
     description: string | null;
     banner: string | null;
