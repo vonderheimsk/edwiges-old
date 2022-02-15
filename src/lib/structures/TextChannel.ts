@@ -36,7 +36,7 @@ export class TextChannel extends GuildChannel {
                 }
             }), this.#client);
         } catch(_: any) {
-            return _;
+            throw Error(_);
         }
     }
 }

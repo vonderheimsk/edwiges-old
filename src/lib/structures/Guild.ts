@@ -2,7 +2,6 @@ import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
 import { GuildInterface } from "@interfaces";
-import { GuildChannel } from './GuildChannel';
 import { Member } from '@structures/Member';
 
 /**
@@ -13,7 +12,7 @@ import { Member } from '@structures/Member';
  * @property {string|null} icon_hash The guild icon hash.
  * @property {string} splash The guild splash.
  * @property {string} owner_id The guild owner id.
- * @property {Collection<GuildChannel>} channels The guild channels.
+ * @property {Collection<TextChannel>} channels The guild channels.
  * @property {number} member_count The guild member count.
  * @property {number} max_members The guild max members.
  * @property {Collection<*>} members The guild members.
@@ -32,7 +31,7 @@ import { Member } from '@structures/Member';
  * @property {boolean} widget_enabled The guild widget enabled.
  * @property {string|null} region The guild region.
  * @property {string|null} rules_channel_id The guild rules channel id.
- * @property {Collection<*>} threads The guild threads.
+ * @property {Collection<TextChannel>} threads The guild threads.
  * @property {boolean} unavailable Whether the guild is unavailable or not.
  * @property {number|null} permissions The guild permissions.
  * @property {string|null} preferred_locale The guild preferred locale.
@@ -61,7 +60,7 @@ export class Guild implements GuildInterface {
     public icon: string;
     public icon_hash: string | null;
     public owner_id: string;
-    public channels: Collection<GuildChannel>;
+    public channels: Collection<TextChannel>;
     public member_count: number | null;
     public max_members: number | null;
     public max_presences: number | null;
@@ -130,7 +129,7 @@ export class Guild implements GuildInterface {
         this.shardID = data.shardID || 0;
         this.icon_hash = data.icon_hash;
         this.owner_id = data.owner_id;
-        this.channels = new Collection(GuildChannel,  Array.isArray(data.channels) ? data.channels.map((channel: any) => new GuildChannel(channel, this.#client)) : data.channels);
+        this.channels = new Collection(TextChannel,  Array.isArray(data.channels) ? data.channels.map((channel: any) => new TextChannel(channel, this.#client)) : data.channels);
         this.member_count = data.member_count;
         this.max_members = data.max_members || null;
         this.max_presences = data.max_presences || null;
@@ -150,7 +149,7 @@ export class Guild implements GuildInterface {
         this.roles = new Collection(Object, data.roles);
         this.rules_channel_id = data.rules_channel_id || null;
         this.splash = data.splash;
-        this.threads = new Collection(GuildChannel, Array.isArray(data.threads) ? data.threads.map((channel: any) => new GuildChannel(channel, this.#client)) : data.threads);
+        this.threads = new Collection(TextChannel, Array.isArray(data.threads) ? data.threads.map((channel: any) => new TextChannel(channel, this.#client)) : data.threads);
         this.unavailable = data.unavailable || false;
         this.permissions = data.permissions || null;
         this.preferred_locale = data.preferred_locale || null;

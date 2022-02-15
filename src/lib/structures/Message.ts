@@ -68,7 +68,7 @@ export class Message implements MessageInterface {
     public interaction: any;
     public stickers: any;
     public sticker_items: Collection<any>;
-    public channel: GuildChannel | TextChannel;
+    public channel: TextChannel;
     public guild_id: string | null;
     public guild: Guild | null;
     #client: Client;
@@ -94,16 +94,18 @@ export class Message implements MessageInterface {
         this.author = new User(data.author);
         this.guild_id = data.guild_id || null;
         this.guild = this.#client.cache.guilds.get(this.guild_id);
-        this.channel =  this.guild?.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id) || new TextChannel(data.channel_id, this.#client);
+
+        //@ts-ignore
+        this.channel =  this.guild?.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id);
         if(!this.channel) {
             this.#client.rest.request({
                 endpoint: `/channels/${this.channel_id}`,
                 method: 'get',
                 authorization: true
-            }).then((res: any) => this.channel = new GuildChannel(res, this.#client));
+            }).then((res: any) => this.channel = new TextChannel(res, this.#client));
         }
         this.content = data.content;
-        this.timestamp = new Date(data.timestamp).getTime();
+        this.timestamp = new Date(data.timestamp).getTime() || 0;
         this.edited_timestamp = data.edited_timestamp || null;
         this.tts = data.tts || false;
         this.mention_everyone = data.mention_everyone || false;
