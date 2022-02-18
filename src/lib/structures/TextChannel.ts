@@ -1,6 +1,7 @@
 import { GuildChannel } from '@structures/GuildChannel';
 import { Client } from '@client/Client';
 import { Message } from '@structures/Message';
+import { ParseApiError } from '@utils/ParseApiError';
 
 /**
  * Represents a text channel.
@@ -14,7 +15,7 @@ export class TextChannel extends GuildChannel {
      * @param id The channel ID.
      * @param client The client instance.
      */
-    public constructor(data: any, client: Client) {
+    public constructor(data: any = {}, client: Client) {
         super(data, client);
 
         this.#client = client;
@@ -36,7 +37,7 @@ export class TextChannel extends GuildChannel {
                 }
             }), this.#client);
         } catch(_: any) {
-            throw Error(_);
+            throw new Error(ParseApiError(_));
         }
     }
 }

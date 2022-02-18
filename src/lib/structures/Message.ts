@@ -78,7 +78,7 @@ export class Message implements MessageInterface {
      * @param data The message data.
      * @param client The client instance.
      */
-    public constructor(data: any, client: Client) {
+    public constructor(data: any = {}, client: Client) {
         if(!data.id || !data.channel_id || !data.content || !data.author || !data.timestamp) {
             throw new Error('Invalid message data');
         }

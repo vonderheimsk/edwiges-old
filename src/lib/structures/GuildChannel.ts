@@ -66,7 +66,7 @@ export class GuildChannel implements GuildChannelInterface {
      * @param {object} data The channel data.
      * @param {Client} client The client instance.
      */
-    public constructor(data: any, client: Client) {
+    public constructor(data: any = {}, client: Client) {
         if (!data.id || !data.name || data.type === undefined) {
             throw new Error("Invalid guild channel data");
         }

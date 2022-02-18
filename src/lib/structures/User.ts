@@ -44,7 +44,7 @@ export class User implements UserInterface {
      * Create a new User instance.
      * @param data The user data.
      */
-    public constructor(data: any) {
+    public constructor(data: any = {}) {
         if(!data.id || !data.username || !data.discriminator || !data.avatar) {
             throw new Error('Invalid user data');
         }

@@ -31,7 +31,7 @@ export class Member implements MemberInterface {
      * Create a new Member instance.
      * @param data The member data.
      */
-    public constructor(data: any) {
+    public constructor(data: any = {}) {
         if (!data) {
             throw new Error("Invalid data");
         }
