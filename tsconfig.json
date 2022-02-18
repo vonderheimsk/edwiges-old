@@ -26,6 +26,8 @@
       "@structures/*": ["./src/lib/structures/*"],
       "@interfaces/*": ["./src/lib/interfaces/*"],
       "@interfaces": ["./src/lib/interfaces/index"],
+      "@utils/*": ["./src/lib/utils/*"],
+      "@managers/*": ["./src/lib/managers/*"],
     },
     "strict": true,
   },

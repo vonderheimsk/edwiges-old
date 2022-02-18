@@ -18,7 +18,9 @@ module.exports = {
                 "@gateway": "./src/lib/gateway",
                 "@rest": "./src/lib/rest",
                 "@structures": "./src/lib/structures",
-                "@interfaces": "./src/lib/interfaces"
+                "@interfaces": "./src/lib/interfaces",
+                "@utils": "./src/lib/utils",
+                "@managers": "./src/lib/managers",
             } 
         }]
     ],

@@ -1,8 +1,10 @@
+import { ChannelManager } from './../managers/ChannelManager';
 import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
 import { GuildInterface } from "@interfaces";
 import { Member } from '@structures/Member';
+import { MemberManager } from '@managers/MemberManager';
 
 /**
  * Represents a Guild
@@ -47,7 +49,7 @@ import { Member } from '@structures/Member';
  * @property {string|null} description The guild description.
  * @property {*[]} features The guild features.
  * @property {*[]} guild_scheduled_events The guild scheduled events.
- * @property {number|null} joinedTimestamp The guild joined timestamp.
+ * @property {number|null} joinedTimestamp The client joined timestamp.
  * @property {boolean} large Whether the guild is large or not.
  * @property {string|null} vanity_url_code The guild vanity url code.
  * @property {number|null} verification_level The guild verification level.
@@ -112,7 +114,7 @@ export class Guild implements GuildInterface {
      * @param {object} data The guild data.
      * @param {Client} client The client instance.
      */
-    public constructor(data: any, client: Client) {
+    public constructor(data: any = {}, client: Client) {
         if (!data.id || !data.name) {
             throw new Error("Invalid guild data");
         }
@@ -127,14 +129,14 @@ export class Guild implements GuildInterface {
         this.name = data.name;
         this.icon = data.icon;
         this.shardID = data.shardID || 0;
-        this.icon_hash = data.icon_hash;
+        this.icon_hash = data.icon_hash || null;
         this.owner_id = data.owner_id;
-        this.channels = new Collection(TextChannel,  Array.isArray(data.channels) ? data.channels.map((channel: any) => new TextChannel(channel, this.#client)) : data.channels);
+        this.channels = new ChannelManager(this.#client, data.channels, this.id);
         this.member_count = data.member_count;
         this.max_members = data.max_members || null;
         this.max_presences = data.max_presences || null;
         this.max_video_channel_users = data.max_video_channel_users || null;
-        this.members = new Collection(Object, Array.isArray(data.members) ? data.members.map((member: any) => new Member(member)) : data.members);
+        this.members = new MemberManager(this.#client, data.members, this.id);
         this.mfa_level = data.mfa_level;
         this.afk_channel_id = data.afk_channel_id || null;
         this.afk_timeout = data.afk_timeout || null;
