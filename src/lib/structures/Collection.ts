@@ -11,7 +11,7 @@ export class Collection<T extends unknown> extends Map {
      * @param {any} baseObject The base object.
      * @param {any[]} values The values to add.
      */
-    public constructor(baseObject: any, values: any[] = []) {
+    public constructor(baseObject?: any, values: any[] = []) {
         super();
 
         this.baseObject = baseObject;
