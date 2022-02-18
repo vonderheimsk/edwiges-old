@@ -70,15 +70,15 @@ export class RequestManager extends EventEmitter {
             }
     
             if (!options.method || !options.endpoint) {
-                reject('Missing method or endpoint');
+                reject(new Error('Missing method or endpoint'));
             }
 
             if (!httpMethods[options.method]) {
-                reject('Invalid method');
+                reject(new Error('Invalid method'));
             }
 
             if (typeof options.endpoint !== 'string') {
-                reject('Invalid endpoint');
+                reject(new Error('Invalid endpoint'));
             }
 
             if (options.endpoint.startsWith('/')) {
@@ -110,7 +110,15 @@ export class RequestManager extends EventEmitter {
                         if (response.statusCode === 200) {
                             resolve(JSON.parse(body));
                         } else {
-                            reject(`${response.statusCode}: ${body}`);
+                            if(response.statusCode === 429) {
+                                this.#client.emit('ratelimit', response.headers['retry-after']);
+
+                                setTimeout(() => {
+                                    this.request(options).then(resolve).catch(reject);
+                                }, (response.headers['retry-after'] as any || 0) * 1000);
+                            } else {
+                                reject(new Error(`${response.statusCode}: ${body}`));
+                            }
                         }
 
                         this.emit('request', {
@@ -125,8 +133,8 @@ export class RequestManager extends EventEmitter {
                     req.write(JSON.stringify(options.data));
                 }
                 req.end();
-            } catch (error) {
-                reject(error);
+            } catch (error: any) {
+                reject(new Error(error));
             }
         });
     }
