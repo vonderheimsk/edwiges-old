@@ -34,7 +34,7 @@ export const JSONCodes = {
     10060: 'Unknown Sticker',
 };
 
-const RPCCodes = {
+export const RPCCodes = {
     1000: 'Unknown Error',
     4000: 'Invalid Payload',
     4002: 'Invalid Command',
@@ -51,4 +51,4 @@ const RPCCodes = {
     5002: 'GET_GUILD Timed Out',
     5003: 'Select Voice Force Required',
     5004: 'Capture shortcut already listening',
-}
+};
