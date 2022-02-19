@@ -1,4 +1,4 @@
-export const JSONCodes = {
+export const JSONErrorCodes = {
     0: 'General Error',
     10001: 'Unknown Account',
     10002: 'Unknown Application',
@@ -34,7 +34,7 @@ export const JSONCodes = {
     10060: 'Unknown Sticker',
 };
 
-export const RPCCodes = {
+export const RPCErrorCodes = {
     1000: 'Unknown Error',
     4000: 'Invalid Payload',
     4002: 'Invalid Command',

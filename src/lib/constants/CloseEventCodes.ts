@@ -1,4 +1,4 @@
-export const GatewayCodes = {
+export const GatewayCloseCodes = {
     4000: 'Unknown Error',
     4001: 'Unknown Opcode',
     4002: 'Decode Error',
@@ -15,7 +15,7 @@ export const GatewayCodes = {
     4014: 'Disallowed Intent',
 }
 
-export const VoiceCodes = {
+export const VoiceCloseCodes = {
     4001: 'Unknown Opcode',
     4002: 'Failed To Decode Payload',
     4003: 'Not Authenticated',
@@ -30,7 +30,7 @@ export const VoiceCodes = {
     4016: 'Unknown Encryption Mode',
 }
 
-export const RPCCodes = {
+export const RPCCloseCodes = {
     4000: 'Invalid Client ID',
     4001: 'Invalid Origin',
     4002: 'Rate Limited',
