@@ -30,8 +30,9 @@ export class Client extends EventEmitter {
     public user: User | null;
     public shards: GatewayManager;
     public rest: RequestManager;
-    public gateway_url?: string;
+    public gateway_url: string | null = null;
     public cache: CacheManager;
+
 
     /**
      * Create a client instace.
@@ -91,6 +92,7 @@ export class Client extends EventEmitter {
             
         };
 
+        this.ready = false;
         this.user = null;
         this.shards = new GatewayManager(this, this.#token);
         this.rest = new RequestManager(this, this.#token, this.options.rest);

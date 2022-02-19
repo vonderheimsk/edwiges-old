@@ -52,6 +52,7 @@ export class GatewayManager extends Collection<Shard> {
                      * @prop {Client} client The client object.
                      */
                     this.#client.emit('ready', this.#client);
+                    this.#client.ready = true;
                 } else if(this.#client.options.sharding?.connectOneShardAtTime === true) {
                     await this.spawn(id + 1);
                 }

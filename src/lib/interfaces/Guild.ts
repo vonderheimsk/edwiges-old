@@ -1,5 +1,6 @@
 import { GuildChannel } from '@structures/GuildChannel';
 import { Collection } from '@structures/Collection';
+import { User } from '@structures/User';
 
 export default interface GuildInterface {
     id: string;
@@ -7,6 +8,7 @@ export default interface GuildInterface {
     icon: string;
     splash: string;
     owner_id: string;
+    owner: User | null;
     permissions: number | null;
     region: string | null;
     afk_channel_id: string;
