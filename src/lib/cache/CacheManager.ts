@@ -2,7 +2,7 @@ import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from "@client/Client";
 import { User } from '@structures/User';
-import { Guild } from '@structures/Guild';
+import { GuildManager } from '@managers/GuildManager';
 
 /**
  * Represents a cache manager.
@@ -11,7 +11,7 @@ import { Guild } from '@structures/Guild';
  */
 export class CacheManager {
     public users: Collection<User>;
-    public guilds: Collection<Guild>;
+    public guilds: GuildManager;
     #client: Client;
 
     /**
@@ -22,7 +22,7 @@ export class CacheManager {
         this.#client = client;
 
         this.users = new Collection(User);
-        this.guilds = new Collection(Guild);
+        this.guilds = new GuildManager(client);
         this.setup();
     }
 
