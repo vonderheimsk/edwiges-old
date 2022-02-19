@@ -131,12 +131,12 @@ export class Guild implements GuildInterface {
         this.shardID = data.shardID || 0;
         this.icon_hash = data.icon_hash || null;
         this.owner_id = data.owner_id;
-        this.channels = new ChannelManager(this.#client, data.channels, this.id);
+        this.channels = new ChannelManager(this.#client, this.id, data.channels);
         this.member_count = data.member_count;
         this.max_members = data.max_members || null;
         this.max_presences = data.max_presences || null;
         this.max_video_channel_users = data.max_video_channel_users || null;
-        this.members = new MemberManager(this.#client, data.members, this.id);
+        this.members = new MemberManager(this.#client, this.id, data.members);
         this.mfa_level = data.mfa_level;
         this.afk_channel_id = data.afk_channel_id || null;
         this.afk_timeout = data.afk_timeout || null;

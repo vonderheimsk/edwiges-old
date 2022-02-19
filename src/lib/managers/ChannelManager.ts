@@ -7,7 +7,7 @@ export class ChannelManager extends Collection<TextChannel> {
     public guild_id: string;
     #client: Client;
 
-    public constructor(client: Client, channels: Array<TextChannel>, guild_id:  string) {
+    public constructor(client: Client, guild_id:  string, channels: Array<TextChannel> = []) {
         super(TextChannel);
 
         if(!client) throw new Error("Client is not valid.");

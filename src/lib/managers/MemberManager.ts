@@ -7,7 +7,7 @@ export class MemberManager extends Collection<Member> {
     public guild_id: string;
     #client: Client;
 
-    public constructor(client: Client, members: Array<Member>, guild_id: string) {
+    public constructor(client: Client, guild_id: string, members: Array<Member> = []) {
         super(Member);
         if(!client) throw new Error("Client is not valid.");
         if(!guild_id) throw new Error("Guild ID is not valid.");
