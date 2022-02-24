@@ -12,7 +12,6 @@ export class GuildChannelManager extends Collection<TextChannel> {
 
         if(!client) throw new Error("Client is not valid.");
         if(!guild_id) throw new Error("Guild ID is not valid.");
-        if(!channels) throw new Error("Channels are not valid.");
 
         if(!Array.isArray(channels)) {
             channels = [channels];

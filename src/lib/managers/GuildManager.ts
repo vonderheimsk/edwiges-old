@@ -9,7 +9,6 @@ export class GuildManager extends Collection<Guild> {
     public constructor(client: Client, guilds: Array<Guild> = []) {
         super(Guild);
         if(!client) throw new Error("Client is not valid.");
-        if(!guilds) throw new Error("Guilds are not valid.");
 
         if(!Array.isArray(guilds)) {
             guilds = [guilds];

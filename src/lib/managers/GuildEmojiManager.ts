@@ -1,38 +1,38 @@
 import { Client } from "@client/Client";
 import { Collection } from "@structures/Collection";
-import { GuildRole } from "@structures/GuildRole";
+import { GuildEmoji } from "@structures/GuildEmoji";
 import { ParseApiError } from "@utils/ParseApiError";
 
-export class GuildRoleManager extends Collection<GuildRole> {
+export class GuildEmojiManager extends Collection<GuildEmoji> {
     public guild_id: string;
     #client: Client;
 
-    public constructor(client: Client, guild_id: string, roles: Array<GuildRole> = []) {
-        super(GuildRole);
+    public constructor(client: Client, guild_id: string, emojis: Array<GuildEmoji> = []) {
+        super(GuildEmoji);
         if(!client) throw new Error("Client is not valid.");
         if(!guild_id) throw new Error("Guild ID is not valid.");
 
-        if(!Array.isArray(roles)) {
-            roles = [roles];
+        if(!Array.isArray(emojis)) {
+            emojis = [emojis];
         }
 
         this.#client = client;
         this.guild_id = guild_id;
 
-        for(let role of roles) {
-            this.set(role.id, new GuildRole(role));
+        for(let emoji of emojis) {
+            this.set(emoji.id, new GuildEmoji(emoji, guild_id, client));
         }
     }
 
-    public async fetch(id: string): Promise<GuildRole> {
+    public async fetch(id: string): Promise<GuildEmoji> {
         try {
             let res = await this.#client.rest.request({
-                endpoint: `guilds/${this.guild_id}/roles/${id}`,
+                endpoint: `guilds/${this.guild_id}/emojis/${id}`,
                 method: 'get',
                 authorization: true
             });
 
-            return new GuildRole(res);
+            return new GuildEmoji(res, this.guild_id, this.#client);
         } catch(_: any) {
             throw Error(ParseApiError(_));
         }

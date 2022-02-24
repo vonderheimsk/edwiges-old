@@ -11,7 +11,6 @@ export class MemberManager extends Collection<Member> {
         super(Member);
         if(!client) throw new Error("Client is not valid.");
         if(!guild_id) throw new Error("Guild ID is not valid.");
-        if(!members) throw new Error("Members are not valid.");
 
         if(!Array.isArray(members)) {
             members = [members];
