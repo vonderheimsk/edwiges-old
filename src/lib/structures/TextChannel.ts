@@ -22,7 +22,7 @@ export class TextChannel extends GuildChannel {
     }
 
     /**
-     * Sends a message to the channel.
+     * Sends a message to a channel.
      * @param content The message content.
      * @returns {Promise<Message>} The sent message.
      */

@@ -79,6 +79,7 @@ export class Client extends EventEmitter {
         }
 
         this.options = {
+            intents: options?.intents || 515,
             rest: {
                 api_version: options?.rest?.api_version || 9,
                 alwaysSendAuthorizationOnRequest: options?.rest?.alwaysSendAuthorizationOnRequest ?? false,

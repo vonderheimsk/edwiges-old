@@ -154,7 +154,7 @@ export class Shard extends EventEmitter {
             token: this.#token,
             v: this.#client.options.rest?.api_version,
             compress: false,
-            intents: 513,
+            intents: this.#client.options.intents,
             shard: (this.#client.options.sharding?.last_shard_id || 0) > 0 ? [this.id, (this.#client.options.sharding?.last_shard_id || 0) + 1] : undefined,
             properties: {
                 $os: process.platform,
@@ -162,7 +162,7 @@ export class Shard extends EventEmitter {
                 $device: 'Edwiges/1.0.0',
             },
         }
-
+        console.log(this.#client.options.intents)
         this.sendPayload({ op: 2, d: obj });
         this.heartbeat();
     }

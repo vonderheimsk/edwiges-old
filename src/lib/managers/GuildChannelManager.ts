@@ -3,7 +3,7 @@ import { Collection } from "@structures/Collection";
 import { TextChannel } from "@structures/TextChannel";
 import { ParseApiError } from "@utils/ParseApiError";
 
-export class ChannelManager extends Collection<TextChannel> {
+export class GuildChannelManager extends Collection<TextChannel> {
     public guild_id: string;
     #client: Client;
 

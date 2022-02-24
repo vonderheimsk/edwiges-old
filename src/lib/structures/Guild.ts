@@ -1,10 +1,11 @@
-import { ChannelManager } from './../managers/ChannelManager';
+import { GuildChannelManager } from '../managers/GuildChannelManager';
 import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
 import { GuildInterface } from "@interfaces";
 import { MemberManager } from '@managers/MemberManager';
 import { User } from '@structures/User';
+import { GuildRoleManager } from '@managers/GuildRoleManager';
 
 /**
  * Represents a Guild
@@ -134,9 +135,9 @@ export class Guild implements GuildInterface {
         this.icon_hash = data.icon_hash || null;
         this.owner_id = data.owner_id;
         this.owner = this.#client.cache.users.get(this.owner_id);
-        this.channels = new ChannelManager(this.#client, this.id, data.channels);
+        this.channels = new GuildChannelManager(this.#client, this.id, data.channels);
         this.members = new MemberManager(this.#client, this.id, data.members);
-        this.roles = new Collection(Object, data.roles);
+        this.roles = new GuildRoleManager(this.#client, this.id, data.roles);
         this.emojis = new Collection(Object, data.emojis);
         this.threads = new Collection(TextChannel, Array.isArray(data.threads) ? data.threads.map((channel: any) => new TextChannel(channel, this.#client)) : data.threads);
         this.presences = new Collection(Object, data.presences);

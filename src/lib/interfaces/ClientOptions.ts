@@ -11,6 +11,7 @@ export interface ClientShardingOptions {
 }
 
 export interface ClientOptions {
+    intents?: number;
     rest?: ClientRestOptions;
     sharding?: ClientShardingOptions;
 }

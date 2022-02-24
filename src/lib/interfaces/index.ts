@@ -5,6 +5,7 @@ import UserInterface from "./User";
 import MessageInterface from './Message';
 import GuildChannelInterface from './GuildChannel';
 import MemberInterface from './Member';
+import GuildRoleInterface from './GuildRole';
 
 export {
     ClientOptions,
@@ -15,5 +16,6 @@ export {
     MessageInterface,
     GuildChannelInterface,
     GuildInterface,
-    MemberInterface
+    MemberInterface,
+    GuildRoleInterface,
 };
