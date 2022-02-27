@@ -142,7 +142,7 @@ export class Shard extends EventEmitter {
         try {
             let handler = await import(`../handlers/${t}`);
             handler.default(this.#client, this, d);
-        } catch{}
+        } catch(_: any) {}
 
     }
 

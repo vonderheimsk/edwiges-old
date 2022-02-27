@@ -20,9 +20,7 @@ export class GuildChannelManager extends Collection<TextChannel> {
         this.guild_id = guild_id;
         this.#client = client;
 
-        for(let channel of channels) {
-            this.set(channel.id, new TextChannel(channel, client));
-        }
+        channels.forEach(channel => this.set(channel.id, new TextChannel(channel, this.#client)));
     }
 
     public async fetch(id: string): Promise<TextChannel> {

@@ -19,9 +19,7 @@ export class GuildRoleManager extends Collection<GuildRole> {
         this.#client = client;
         this.guild_id = guild_id;
 
-        for(let role of roles) {
-            this.set(role.id, new GuildRole(role));
-        }
+        roles.forEach(role => this.set(role.id, new GuildRole(role)));
     }
 
     public async fetch(id: string): Promise<GuildRole> {

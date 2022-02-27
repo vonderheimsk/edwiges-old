@@ -20,7 +20,7 @@ export class GuildEmoji implements GuildEmojiInterface {
     public name: string;
     public require_colons: boolean;
     public roles: GuildRoleManager;
-    public user: User;
+    public user: User | null;
     public available: boolean;
     public managed: boolean;
     public animated: boolean;
@@ -40,14 +40,14 @@ export class GuildEmoji implements GuildEmojiInterface {
         if(!guild_id) throw new Error("Guild ID is required.");
 
         this.#client = client;
-        this.guild_id = data.guild_id;
+        this.guild_id = guild_id;
         this.id = data.id;
         this.name = data.name;
         this.animated = data.animated || false;
         this.managed = data.managed || false;
         this.require_colons = data.require_colons || false;
         this.roles = new GuildRoleManager(client, guild_id, data.roles);
-        this.user = data.user;
+        this.user = data.user ? new User(data.user) : null;
         this.available = data.available || false;
     }
 }

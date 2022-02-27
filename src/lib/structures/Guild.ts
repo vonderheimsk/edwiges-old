@@ -1,9 +1,10 @@
+import { GuildEmojiManager } from './../managers/GuildEmojiManager';
 import { GuildChannelManager } from '../managers/GuildChannelManager';
 import { TextChannel } from '@structures/TextChannel';
 import { Collection } from '@structures/Collection';
 import { Client } from '@client/Client';
 import { GuildInterface } from "@interfaces";
-import { MemberManager } from '@managers/MemberManager';
+import { GuildMemberManager } from '@managers/GuildMemberManager';
 import { User } from '@structures/User';
 import { GuildRoleManager } from '@managers/GuildRoleManager';
 
@@ -16,10 +17,10 @@ import { GuildRoleManager } from '@managers/GuildRoleManager';
  * @property {string} splash The guild splash.
  * @property {string} owner_id The guild owner id.
  * @property {User|null} owner The guild owner.
- * @property {Collection<TextChannel>} channels The guild channels.
- * @property {MemberManager} members The guild members.
- * @property {Collection<*>} roles The guild roles.
- * @property {Collection<*>} emojis The guild emojis.
+ * @property {GuildChannelManager} channels The guild channels.
+ * @property {GuildMemberManager} members The guild members.
+ * @property {GuildRoleManager} roles The guild roles.
+ * @property {GuildEmojiManager} emojis The guild emojis.
  * @property {Collection<*>} presences The guild presences.
  * @property {Collection<TextChannel>} threads The guild threads.
  * @property {number} member_count The guild member count.
@@ -65,10 +66,10 @@ export class Guild implements GuildInterface {
     public icon_hash: string | null;
     public owner_id: string;
     public owner: User | null;
-    public channels: Collection<TextChannel>;
-    public members: MemberManager;
-    public roles: Collection<any>;
-    public emojis: Collection<any>;
+    public channels: GuildChannelManager;
+    public members: GuildMemberManager;
+    public roles: GuildRoleManager;
+    public emojis: GuildEmojiManager;
     public threads: Collection<TextChannel>;
     public presences: Collection<any>;
     public member_count: number | null;
@@ -136,9 +137,9 @@ export class Guild implements GuildInterface {
         this.owner_id = data.owner_id;
         this.owner = this.#client.cache.users.get(this.owner_id);
         this.channels = new GuildChannelManager(this.#client, this.id, data.channels);
-        this.members = new MemberManager(this.#client, this.id, data.members);
+        this.members = new GuildMemberManager(this.#client, this.id, data.members);
         this.roles = new GuildRoleManager(this.#client, this.id, data.roles);
-        this.emojis = new Collection(Object, data.emojis);
+        this.emojis = new GuildEmojiManager(this.#client, this.id, data.emojis);
         this.threads = new Collection(TextChannel, Array.isArray(data.threads) ? data.threads.map((channel: any) => new TextChannel(channel, this.#client)) : data.threads);
         this.presences = new Collection(Object, data.presences);
         this.member_count = data.member_count;

@@ -3,7 +3,7 @@ import { Collection } from "@structures/Collection";
 import { Member } from "@structures/Member";
 import { ParseApiError } from "@utils/ParseApiError";
 
-export class MemberManager extends Collection<Member> {
+export class GuildMemberManager extends Collection<Member> {
     public guild_id: string;
     #client: Client;
 
@@ -19,9 +19,7 @@ export class MemberManager extends Collection<Member> {
         this.#client = client;
         this.guild_id = guild_id;
 
-        for(let member of members) {
-            this.set(member.user.id, new Member(member));
-        }
+        members.forEach(member => this.set(member.user.id, new Member(member)));
     }
 
     public async fetch(id: string): Promise<Member> {

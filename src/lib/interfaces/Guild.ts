@@ -1,6 +1,10 @@
+import { GuildMemberManager } from '@managers/GuildMemberManager';
 import { GuildChannel } from '@structures/GuildChannel';
 import { Collection } from '@structures/Collection';
 import { User } from '@structures/User';
+import { GuildRoleManager } from '@managers/GuildRoleManager';
+import { GuildEmojiManager } from '@managers/GuildEmojiManager';
+import { GuildChannelManager } from '@managers/GuildChannelManager';
 
 export default interface GuildInterface {
     id: string;
@@ -17,8 +21,8 @@ export default interface GuildInterface {
     widget_channel_id: string | null;
     verification_level: number;
     default_message_notifications: number | null;
-    roles: Collection<any>;
-    emojis: Collection<any>;
+    roles: GuildRoleManager;
+    emojis: GuildEmojiManager;
     features: Array<any>;
     mfa_level: number;
     icon_hash: string | null;
@@ -31,8 +35,8 @@ export default interface GuildInterface {
     unavailable: boolean;
     member_count: number | null;
     voice_states: Array<any> | [];
-    members: Collection<any>;
-    channels: Collection<GuildChannel>;
+    members: GuildMemberManager;
+    channels: GuildChannelManager;
     threads: Collection<any>;
     presences: Collection<any>;
     max_presences: number | null;

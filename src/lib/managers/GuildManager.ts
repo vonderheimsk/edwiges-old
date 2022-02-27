@@ -16,9 +16,7 @@ export class GuildManager extends Collection<Guild> {
 
         this.#client = client;
 
-        for(let guild of guilds) {
-            this.set(guild.id, new Guild(guild, this.#client));
-        }
+        guilds.forEach(guild => this.set(guild.id, new Guild(guild, this.#client)));
     }
 
     public async fetch(id: string): Promise<Guild> {

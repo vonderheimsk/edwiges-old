@@ -19,9 +19,7 @@ export class GuildEmojiManager extends Collection<GuildEmoji> {
         this.#client = client;
         this.guild_id = guild_id;
 
-        for(let emoji of emojis) {
-            this.set(emoji.id, new GuildEmoji(emoji, guild_id, client));
-        }
+        emojis.forEach(emoji => this.set(emoji.id, new GuildEmoji(emoji, this.guild_id, this.#client)));
     }
 
     public async fetch(id: string): Promise<GuildEmoji> {

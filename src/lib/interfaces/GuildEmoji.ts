@@ -5,7 +5,7 @@ export default interface GuildEmojiInterface {
     id: string;
     name: string;
     roles: GuildRoleManager;
-    user: User;
+    user: User | null;
     require_colons: boolean;
     managed: boolean;
     animated: boolean;
