@@ -1,3 +1,4 @@
+import { GuildCacheManager } from './../cache/GuildCacheManager';
 import { GuildEmojiManager } from './../managers/GuildEmojiManager';
 import { GuildChannelManager } from '../managers/GuildChannelManager';
 import { TextChannel } from '@structures/TextChannel';
@@ -66,10 +67,7 @@ export class Guild implements GuildInterface {
     public icon_hash: string | null;
     public owner_id: string;
     public owner: User | null;
-    public channels: GuildChannelManager;
-    public members: GuildMemberManager;
-    public roles: GuildRoleManager;
-    public emojis: GuildEmojiManager;
+    public cache: GuildCacheManager;
     public threads: Collection<TextChannel>;
     public presences: Collection<any>;
     public member_count: number | null;
@@ -136,10 +134,7 @@ export class Guild implements GuildInterface {
         this.icon_hash = data.icon_hash || null;
         this.owner_id = data.owner_id;
         this.owner = this.#client.cache.users.get(this.owner_id);
-        this.channels = new GuildChannelManager(this.#client, this.id, data.channels);
-        this.members = new GuildMemberManager(this.#client, this.id, data.members);
-        this.roles = new GuildRoleManager(this.#client, this.id, data.roles);
-        this.emojis = new GuildEmojiManager(this.#client, this.id, data.emojis);
+        this.cache = new GuildCacheManager(this, data, this.#client);
         this.threads = new Collection(TextChannel, Array.isArray(data.threads) ? data.threads.map((channel: any) => new TextChannel(channel, this.#client)) : data.threads);
         this.presences = new Collection(Object, data.presences);
         this.member_count = data.member_count;

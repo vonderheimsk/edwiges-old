@@ -96,7 +96,7 @@ export class Message implements MessageInterface {
         this.guild = this.#client.cache.guilds.get(this.guild_id) || null;
 
         //@ts-ignore
-        this.channel =  this.guild?.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id) || null;
+        this.channel =  this.guild?.cache.channels.get(this.channel_id) || this.guild?.threads.get(this.channel_id) || null;
         if(!this.channel) {
             this.#client.rest.request({
                 endpoint: `/channels/${this.channel_id}`,

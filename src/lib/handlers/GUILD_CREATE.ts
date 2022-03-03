@@ -6,7 +6,7 @@ export default (client: Client, shard: Shard, d: any) => {
     d.shardID = shard.id;
     let guild = new Guild(d, client);
     client.cache.guilds.set(guild.id, guild);
-    for(let member of guild.members.values()) {
+    for(let member of guild.cache.members.values()) {
         client.cache.users.set(member.user.id, member.user);
     }
     if(client.ready) {

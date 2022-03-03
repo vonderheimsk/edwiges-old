@@ -23,4 +23,4 @@ export const CONSTANTS = {
 };
 export { Intents } from './lib/constants/Intents';
 export { Client } from '@client/Client';
-export { CacheManager } from './lib/cache/CacheManager';
+export { ClientCacheManager } from './lib/cache/ClientCacheManager';

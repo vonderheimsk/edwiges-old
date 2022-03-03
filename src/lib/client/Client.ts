@@ -1,4 +1,4 @@
-import { CacheManager } from './../cache/CacheManager';
+import { ClientCacheManager } from '../cache/ClientCacheManager';
 import { RequestManager } from '@rest/RequestManager';
 import { GatewayManager } from '@gateway/GatewayManager';
 import { ClientOptions, UserInterface } from "@interfaces";
@@ -21,7 +21,7 @@ try {
  * @property {GatewayManager} shards The shards list.
  * @property {User} user The user object.
  * @property {RequestManager} rest The request manager.
- * @property {CacheManager} cache The cache manager.
+ * @property {ClientCacheManager} cache The cache manager.
  * @property {number} ping The client's ping.
  */
 export class Client extends EventEmitter {
@@ -31,7 +31,7 @@ export class Client extends EventEmitter {
     public shards: GatewayManager;
     public rest: RequestManager;
     public gateway_url: string | null = null;
-    public cache: CacheManager;
+    public cache: ClientCacheManager;
 
 
     /**
@@ -97,7 +97,7 @@ export class Client extends EventEmitter {
         this.user = null;
         this.shards = new GatewayManager(this, this.#token);
         this.rest = new RequestManager(this, this.#token, this.options.rest);
-        this.cache = new CacheManager(this);
+        this.cache = new ClientCacheManager(this);
     }
 
     /**

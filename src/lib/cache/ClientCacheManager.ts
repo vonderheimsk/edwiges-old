@@ -9,7 +9,7 @@ import { GuildManager } from '@managers/GuildManager';
  * @property {Collection<User>} users The users cache.
  * @property {Collection<Guild>} guilds The guilds cache.
  */
-export class CacheManager {
+export class ClientCacheManager {
     public users: Collection<User>;
     public guilds: GuildManager;
     #client: Client;
@@ -35,7 +35,7 @@ export class CacheManager {
 
             if(/(\/)?channels\/\d+/gm.test(data.request.endpoint)) {
                 let guild = this.guilds.get(data.body.guild_id);
-                guild?.channels.set(data.body.id, new TextChannel(data.body, this.#client));
+                guild?.cache.channels.set(data.body.id, new TextChannel(data.body, this.#client));
             }
         })
     }
