@@ -142,9 +142,7 @@ export class Shard extends EventEmitter {
         try {
             let handler = await import(`../handlers/${t}`);
             handler.default(this.#client, this, d);
-        } catch(_: any) {
-            console.log(_)
-        }
+        } catch(_: any) {}
 
     }
 
@@ -164,7 +162,6 @@ export class Shard extends EventEmitter {
                 $device: 'Edwiges/1.0.0',
             },
         }
-        console.log(this.#client.options.intents)
         this.sendPayload({ op: 2, d: obj });
         this.heartbeat();
     }
